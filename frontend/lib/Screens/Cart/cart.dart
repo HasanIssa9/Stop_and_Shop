@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stop_and_shop/style/colors.dart';
 import '../../modules/module_product.dart';
 import '../../shared/components/components.dart';
 import '../HomeScreen/build_containers.dart';
 import '../HomeScreen/search.dart';
 import '../details/details.dart';
+import 'build_cart_item.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -45,27 +47,30 @@ class Cart extends StatelessWidget {
               Expanded(
                 child: Obx(() {
                   return ListView(
-                    children: [
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        children: Product.products
-                            .where((e) => e.isCart.value == true)
-                            .map((e) => GestureDetector(
-                          onTap: (){
-                            Get.to(Details(product: e,));
-                          },
-                                    child: BuildItem(
-                                  imageUrl: e.imageProduct.value,
-                                  nameProduct: e.nameProduct.value,
-                                  categoryProduct: e.categoryProduct.value,
-                                  price: e.priceProduct.value,
-                                  product: e,
-                                )))
-                            .toList(),
-                      )
-                    ],
+                    children: Product.products
+                        .where((e) => e.isCart.value == true)
+                        .map((e) => BuildCartItem(
+                              imageUrl: e.imageProduct.value,
+                              nameProduct: e.nameProduct.value,
+                              price: e.priceProduct.value,
+                              weightProduct: e.weightProduct.value,
+                              product: e,
+                            ))
+                        .toList(),
                   );
                 }),
+              ),
+              Stack(
+                children: [
+                  Container(
+                    height: 45,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: greenColor,
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Text(''),
+                  ),
+                ],
               )
             ],
           ),
@@ -73,4 +78,5 @@ class Cart extends StatelessWidget {
       ),
     );
   }
+
 }

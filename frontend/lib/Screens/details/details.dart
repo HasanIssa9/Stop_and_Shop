@@ -104,13 +104,22 @@ class Details extends StatelessWidget {
                               Row(
                                 children: [
                                   FloatingActionButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        product.weightProduct.value += 0.5;
+                                      },
                                       backgroundColor: greenColor,
                                       mini: true,
                                       child: const Icon(Icons.add)),
-                                  const Text('kg         '),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Text(
+                                        '${product.weightProduct.value}   كغم'),
+                                  ),
                                   FloatingActionButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        product.weightProduct.value -= 0.5;
+                                      },
                                       backgroundColor: Colors.grey,
                                       mini: true,
                                       child: const Icon(Icons.remove)),

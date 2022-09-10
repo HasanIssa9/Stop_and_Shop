@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:stop_and_shop/Screens/FirstScreen/first_screen.dart';
-import 'package:stop_and_shop/Screens/Locations/Loacations.dart';
+
+import 'Screens/FirstScreen/first_screen.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Loacations(),
+      home: FirstScreen(),
 
     );
   }

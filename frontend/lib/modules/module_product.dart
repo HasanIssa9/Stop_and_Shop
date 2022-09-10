@@ -6,6 +6,7 @@ class Product {
   final RxString descriptionProduct;
   final RxString categoryProduct;
   final RxString priceProduct;
+  final RxDouble weightProduct=0.5.obs;
   final RxBool isFavorite=false.obs;
   final RxBool isCart=false.obs;
 

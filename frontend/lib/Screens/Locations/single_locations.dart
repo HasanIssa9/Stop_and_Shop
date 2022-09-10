@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:get/get.dart';
 import 'package:stop_and_shop/style/colors.dart';
 
 Widget buildsinglelocations() {
   return Container(
-    margin: EdgeInsets.only(top: 10),
-    padding: EdgeInsets.all(10),
+    margin: const EdgeInsets.only(top: 10),
+    padding: const EdgeInsets.all(10),
     width: double.infinity,
     decoration: BoxDecoration(
         color: Colors.white,
@@ -20,7 +18,7 @@ Widget buildsinglelocations() {
       ),
       TextButton(
           onPressed: () {},
-          child: Icon(
+          child: const Icon(
             Icons.remove_circle,
             color: Colors.red,
           ))

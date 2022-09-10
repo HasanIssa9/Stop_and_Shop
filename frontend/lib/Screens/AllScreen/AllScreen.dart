@@ -4,7 +4,7 @@ import 'package:stop_and_shop/Screens/FavoritesScreen/favorites.dart';
 import 'package:stop_and_shop/Screens/HomeScreen/home_screen.dart';
 
 import '../../style/colors.dart';
-import 'package:stop_and_shop/Screens/UserProfile/UserProfile.dart';
+import 'package:stop_and_shop/Screens/UserProfile/user_profile.dart';
 
 import '../Cart/Cart.dart';
 
