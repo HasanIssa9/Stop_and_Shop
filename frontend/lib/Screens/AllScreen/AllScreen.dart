@@ -4,6 +4,7 @@ import 'package:stop_and_shop/Screens/FavoritesScreen/favorites.dart';
 import 'package:stop_and_shop/Screens/HomeScreen/home_screen.dart';
 
 import '../../style/colors.dart';
+import 'package:stop_and_shop/Screens/UserProfile/UserProfile.dart';
 
 import '../Cart/Cart.dart';
 
@@ -20,6 +21,7 @@ class _AllScreenState extends State<AllScreen> {
     HomePage(),
     Cart(),
     Favorites(),
+    UserProfile(),
   ];
 
   @override
