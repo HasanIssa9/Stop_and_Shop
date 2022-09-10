@@ -1,0 +1,1 @@
+class User {  final String email;  final String password;  final String fullName;  User({    required this.fullName,    required this.email,    required this.password,  });}
