@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stop_and_shop/modules/module_cart.dart';
 import 'package:stop_and_shop/style/colors.dart';
 import 'package:stop_and_shop/Screens/HomeScreen/build_containers.dart';
 
@@ -76,145 +77,155 @@ class Details extends StatelessWidget {
                 ),
                 // --------------------details ---------------
 
-                Stack(
-                  children: [
-                    Container(
-                      height: 500,
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TitleName(title: product.nameProduct.value),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 3),
-                                  decoration: BoxDecoration(
-                                      color: greenColor,
-                                      borderRadius: BorderRadius.circular(16)),
-                                  child: Text(
-                                    '${product.priceProduct.value} د.ع',
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Row(
-                                children: [
-                                  FloatingActionButton(
-                                      onPressed: () {
-                                        product.weightProduct.value += 0.5;
-                                      },
-                                      backgroundColor: greenColor,
-                                      mini: true,
-                                      child: const Icon(Icons.add)),
-                                  Padding(
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 500,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TitleName(title: product.nameProduct.value),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 5),
+                                        horizontal: 20, vertical: 3),
+                                    decoration: BoxDecoration(
+                                        color: greenColor,
+                                        borderRadius: BorderRadius.circular(16)),
                                     child: Text(
-                                        '${product.weightProduct.value}   كغم'),
+                                      '${product.priceProduct.value} د.ع',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Row(
+                                  children: [
+                                    FloatingActionButton(
+                                        onPressed: () {
+                                          product.weightProduct.value += 0.5;
+                                        },
+                                        backgroundColor: greenColor,
+                                        mini: true,
+                                        child: const Icon(Icons.add)),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                          '${product.weightProduct.value}   كغم'),
+                                    ),
+                                    FloatingActionButton(
+                                        onPressed: () {
+                                          product.weightProduct.value -= 0.5;
+                                        },
+                                        backgroundColor: Colors.grey,
+                                        mini: true,
+                                        child: const Icon(Icons.remove)),
+                                  ],
+                                )
+                              ],
+                            ),
+                            TitleName(title: 'الوصف'),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Container(
+                                height: 100,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: Text(
+                                  product.descriptionProduct.value,
+                                  style: const TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  FloatingActionButton(
-                                      onPressed: () {
-                                        product.weightProduct.value -= 0.5;
-                                      },
-                                      backgroundColor: Colors.grey,
-                                      mini: true,
-                                      child: const Icon(Icons.remove)),
-                                ],
-                              )
-                            ],
-                          ),
-                          TitleName(title: 'الوصف'),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Container(
-                              height: 100,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Text(
-                                product.descriptionProduct.value,
-                                style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                          ),
-                          TitleName(title: 'منتجات مماثلة'),
-                          SizedBox(
-                            height: 195,
-                            child: Obx(
-                              () {
-                                return ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: Product.products
-                                      .where((e) =>
-                                          e.categoryProduct.value ==
-                                          product.categoryProduct.value)
-                                      .map(
-                                        (e) => GestureDetector(
-                                          onTap: () {
-                                            Get.to(Details(
+                            TitleName(title: 'منتجات مماثلة'),
+                            SizedBox(
+                              height: 195,
+                              child: Obx(
+                                () {
+                                  return ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: Product.products
+                                        .where((e) =>
+                                            e.categoryProduct.value ==
+                                            product.categoryProduct.value)
+                                        .map(
+                                          (e) => GestureDetector(
+                                            onTap: () {
+                                              Get.to(Details(
+                                                product: e,
+                                              ));
+                                            },
+                                            child: BuildItem(
+                                              imageUrl: e.imageProduct.value,
+                                              nameProduct: e.nameProduct.value,
+                                              categoryProduct:
+                                                  e.categoryProduct.value,
+                                              price: e.priceProduct.value,
                                               product: e,
-                                            ));
-                                          },
-                                          child: BuildItem(
-                                            imageUrl: e.imageProduct.value,
-                                            nameProduct: e.nameProduct.value,
-                                            categoryProduct:
-                                                e.categoryProduct.value,
-                                            price: e.priceProduct.value,
-                                            product: e,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                      .toList(),
-                                );
-                              },
+                                        )
+                                        .toList(),
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      right: 12,
-                      left: 12,
-                      bottom: 0,
-                      child: Container(
-                        width: double.infinity,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: greenColor,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: TextButton(
-                          onPressed: () {
-                            (product.isCart.value == true)
-                                ? product.isCart.value = false
-                                : product.isCartChanged();
-                          },
-                          child: (product.isCart.value == false)
-                              ? const Text(
-                                  'اضافة الى سلتي',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                )
-                              : const Text(
-                                  'ازالة من السلة',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          width: double.infinity,
+                          height: 50,
+                          margin: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                          decoration: BoxDecoration(
+                              color: greenColor,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: TextButton(
+                            onPressed: () {
+                              if (product.isCart.value == true) {
+                                product.isCart.value = false;
+                              } else {
+                                product.isCartChanged();
+                                CartModule.add(
+                                  product.nameProduct.value,
+                                  product.imageProduct.value,
+                                  product.weightProduct.value,
+                                  product.priceProduct.value,
+                                );
+                                print(CartModule.products.toList());
+                              }
+                            },
+                            child: (product.isCart.value == false)
+                                ? const Text(
+                                    'اضافة الى سلتي',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  )
+                                : const Text(
+                                    'ازالة من السلة',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
             );

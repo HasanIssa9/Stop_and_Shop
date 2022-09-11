@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stop_and_shop/Screens/CheckOutScreen/check_out.dart';
+import 'package:stop_and_shop/modules/module_cart.dart';
 import 'package:stop_and_shop/style/colors.dart';
 import '../../modules/module_product.dart';
 import '../../shared/components/components.dart';
-import '../HomeScreen/build_containers.dart';
 import '../HomeScreen/search.dart';
-import '../details/details.dart';
 import 'build_cart_item.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,52 +32,63 @@ class Cart extends StatelessWidget {
               color: Colors.black,
             ),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                decoration: BoxDecoration(
+                    color: greenColor, borderRadius: BorderRadius.circular(16)),
+                child: TextButton(
+                  onPressed: () {
+                    Get.to(const CheckOut());
+                  },
+                  child: const Text(
+                    'الدفع',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
         body: Container(
           width: double.infinity,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ----------------------------- Box search ---------------------------------------
-              Search(),
+              const Search(),
               const SizedBox(
                 height: 15,
               ),
               // ------------------------------- List the product ---------------------------------
               Expanded(
-                child: Obx(() {
-                  return ListView(
-                    children: Product.products
-                        .where((e) => e.isCart.value == true)
-                        .map((e) => BuildCartItem(
-                              imageUrl: e.imageProduct.value,
-                              nameProduct: e.nameProduct.value,
-                              price: e.priceProduct.value,
-                              weightProduct: e.weightProduct.value,
-                              product: e,
-                            ))
-                        .toList(),
-                  );
-                }),
+                child: Stack(
+                  children: [
+                    Obx(() {
+                      return ListView(
+                        children: CartModule.products
+                            .map(
+                              (e) => BuildCartItem(
+                                product: e.product,
+                                nameProduct: e.nameProduct.value,
+                                weightProduct: e.weightProduct.value,
+                                imageUrl: e.imageProduct.value,
+                                price: e.priceProduct.value,
+                              ),
+                            )
+                            .toList(),
+                      );
+                    }),
+                  ],
+                ),
               ),
-              Stack(
-                children: [
-                  Container(
-                    height: 45,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: greenColor,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Text(''),
-                  ),
-                ],
-              )
             ],
           ),
         ),
       ),
     );
   }
-
 }
