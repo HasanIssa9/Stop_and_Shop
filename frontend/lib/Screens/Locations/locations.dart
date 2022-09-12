@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stop_and_shop/Screens/SetLocation/set_location.dart';
 import 'single_locations.dart';
 import 'package:get/get.dart';
 import 'package:stop_and_shop/style/colors.dart';
@@ -35,7 +36,7 @@ class Locations extends StatelessWidget {
             ),
             body: Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -46,25 +47,10 @@ class Locations extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("مواقعي",
-                              style: TextStyle(
-                                  color: greenColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17)),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ]),
-                  ),
                   Expanded(
                       child: ListView.separated(
                           itemBuilder: (context, index) =>
-                              buildsinglelocations(),
+                              const buildSingleLocations(),
                           separatorBuilder: (context, index) => const SizedBox(
                                 height: 0,
                               ),
@@ -88,8 +74,10 @@ class Locations extends StatelessWidget {
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(130)),
                         child: TextButton(
-                            onPressed: () {},
-                            child: const Text("اضف موقع جديد",
+                            onPressed: () {
+                              Get.to(const SetLocation());
+                            },
+                            child: const Text("اضف موقع من الخريطة",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -108,8 +96,8 @@ class Locations extends StatelessWidget {
                         child: TextButton(
                             onPressed: () {},
                             child: const Text(
-                              "اضف الموقع",
-                              style: const TextStyle(
+                              "اضف الموقع يدويا",
+                              style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18),

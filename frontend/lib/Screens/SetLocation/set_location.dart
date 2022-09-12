@@ -1,12 +1,10 @@
 import 'package:geocoding/geocoding.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/foundation/key.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:get/get.dart';
+
+import '../../shared/components/components.dart';
 
 class SetLocation extends StatefulWidget {
   const SetLocation({Key? key}) : super(key: key);
@@ -25,8 +23,8 @@ class _SetLocationState extends State<SetLocation> {
       AwesomeDialog(
           context: context,
           title: "services",
-          body: Text("services not Enable "))
-        ..show();
+          body: const Text("services not Enable "))
+        .show();
     }
     per = await Geolocator.checkPermission();
     if (per == LocationPermission.denied) {
@@ -52,6 +50,21 @@ class _SetLocationState extends State<SetLocation> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            titleSpacing: 20,
+            title: TitleName(title: 'الخريطة'),
+            leading: TextButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+            ),
+          ),
           body: SafeArea(
               child: Center(
                   child: Container(
@@ -60,8 +73,6 @@ class _SetLocationState extends State<SetLocation> {
                 TextButton(
                     onPressed: () async {
                       cl = await getLatAndlong();
-                      print(cl.latitude);
-                      print(cl.longitude);
                       List<Placemark> placemarks =
                           await placemarkFromCoordinates(
                               cl.latitude, cl.longitude);
@@ -69,7 +80,6 @@ class _SetLocationState extends State<SetLocation> {
                       // var distancebetween = await Geolcator.distancebetween(startLatitude , startlongitude , end latitude , end longitud );
                       // var distancekm = distancebeetween / 1000;
                       // print(distancekm);
-                      print(placemarks[0].street);
                     },
                     child: Text("show lat and long "))
               ],
