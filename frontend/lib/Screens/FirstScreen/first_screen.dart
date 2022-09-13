@@ -6,12 +6,23 @@ import 'package:stop_and_shop/check_screens/register.dart';
 import 'package:stop_and_shop/screens/HomeScreen/home_screen.dart';
 import 'package:stop_and_shop/shared/components/components.dart';
 import 'package:stop_and_shop/style/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class FirstScreen extends StatelessWidget {
+class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
 
   @override
+  State<FirstScreen> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
+  @override
   Widget build(BuildContext context) {
+    GoogleSignInAccount? user = _googleSignIn.currentUser;
     return Scaffold(
       body: Column(
         children: [
@@ -81,7 +92,12 @@ class FirstScreen extends StatelessWidget {
                   ContainerDesgin(
                     color: Colors.white,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await _googleSignIn.signIn();
+                        setState(() {
+                          
+                        });
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
