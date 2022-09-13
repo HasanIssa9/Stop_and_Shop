@@ -4,7 +4,7 @@ import 'package:stop_and_shop/shared/components/components.dart';
 import '../../modules/module_product.dart';
 import '../HomeScreen/build_containers.dart';
 import '../HomeScreen/search.dart';
-import '../details/details.dart';
+import '../Details/details.dart';
 
 class Favorites extends StatelessWidget {
   const Favorites({Key? key}) : super(key: key);
@@ -20,15 +20,6 @@ class Favorites extends StatelessWidget {
           elevation: 0,
           titleSpacing: 20,
           title: TitleName(title: 'المفضلة'),
-          leading: TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-          ),
         ),
         body: Container(
           width: double.infinity,

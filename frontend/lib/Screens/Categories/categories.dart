@@ -5,7 +5,7 @@ import 'package:stop_and_shop/Screens/HomeScreen/search.dart';
 import 'package:stop_and_shop/modules/module_product.dart';
 
 import '../../modules/module_category.dart';
-import '../details/details.dart';
+import '../Details/details.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key, required this.category}) : super(key: key);

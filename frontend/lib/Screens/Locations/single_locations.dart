@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:stop_and_shop/modules/module_location.dart';
 import 'package:stop_and_shop/style/colors.dart';
 
-class buildSingleLocations extends StatelessWidget {
-  const buildSingleLocations({Key? key}) : super(key: key);
+class BuildSingleLocations extends StatelessWidget {
+  const BuildSingleLocations(
+      {Key? key, required this.nameLocation, required this.location})
+      : super(key: key);
+
+  final String nameLocation;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +24,19 @@ class buildSingleLocations extends StatelessWidget {
               color: greenColor, width: 1, style: BorderStyle.solid)),
       child: ListTile(
         title: Text(
-          "المنزل",
+          nameLocation,
           style: TextStyle(
               color: greenColor, fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        subtitle: const Text(
-          "الكرادة بغداد ",
-          style: TextStyle(color: Colors.grey),
+        subtitle: Text(
+          location,
+          style: const TextStyle(color: Colors.grey),
         ),
         trailing: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            LocationModule.locations
+                .removeWhere((e) => e.nameLocation.value == nameLocation);
+          },
           mini: true,
           backgroundColor: Colors.red,
           child: const Icon(

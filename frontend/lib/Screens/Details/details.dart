@@ -45,15 +45,30 @@ class Details extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: ListTile(
-                          leading: IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.black,
-                            ),
-                          ),
+                          leading: TextButton(
+                              onPressed: () {
+                                Get.back();
+                                (product.isCart.value == true)
+                                    ? CartModule.update(
+                                        product.nameProduct.value,
+                                        product.imageProduct.value,
+                                        product.weightProduct.value,
+                                        product.priceProduct.value,
+                                      )
+                                    : null;
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal:15),
+                                decoration: BoxDecoration(
+                                    color: greenColor,
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: const Text(
+                                  'حفظ',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
+                              )),
                           trailing: IconButton(
                               onPressed: () {
                                 (product.isFavorite.value == true)
@@ -95,7 +110,8 @@ class Details extends StatelessWidget {
                                         horizontal: 20, vertical: 3),
                                     decoration: BoxDecoration(
                                         color: greenColor,
-                                        borderRadius: BorderRadius.circular(16)),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
                                     child: Text(
                                       '${product.priceProduct.value} د.ع',
                                       style: const TextStyle(
@@ -134,7 +150,7 @@ class Details extends StatelessWidget {
                               scrollDirection: Axis.vertical,
                               child: Container(
                                 height: 100,
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16)),
                                 child: Text(
@@ -187,7 +203,8 @@ class Details extends StatelessWidget {
                         child: Container(
                           width: double.infinity,
                           height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 8),
                           decoration: BoxDecoration(
                               color: greenColor,
                               borderRadius: BorderRadius.circular(30)),
@@ -195,6 +212,9 @@ class Details extends StatelessWidget {
                             onPressed: () {
                               if (product.isCart.value == true) {
                                 product.isCart.value = false;
+                                CartModule.products.removeWhere((e) =>
+                                    e.nameProduct.value ==
+                                    product.nameProduct.value);
                               } else {
                                 product.isCartChanged();
                                 CartModule.add(
@@ -203,7 +223,6 @@ class Details extends StatelessWidget {
                                   product.weightProduct.value,
                                   product.priceProduct.value,
                                 );
-                                print(CartModule.products.toList());
                               }
                             },
                             child: (product.isCart.value == false)

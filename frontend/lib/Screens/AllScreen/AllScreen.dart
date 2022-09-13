@@ -17,10 +17,10 @@ class AllScreen extends StatefulWidget {
 
 class _AllScreenState extends State<AllScreen> {
   int selectItem = 0;
-  List<Widget> allPages = const [
-    HomePage(),
-    Cart(),
-    Favorites(),
+  List<Widget> allPages =  [
+    const HomePage(),
+    const Cart(),
+    const Favorites(),
     UserProfile(),
   ];
 

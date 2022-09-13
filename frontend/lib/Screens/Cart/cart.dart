@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/CheckOutScreen/check_out.dart';
 import 'package:stop_and_shop/modules/module_cart.dart';
 import 'package:stop_and_shop/style/colors.dart';
-import '../../modules/module_product.dart';
 import '../../shared/components/components.dart';
 import '../HomeScreen/search.dart';
 import 'build_cart_item.dart';
@@ -21,17 +20,7 @@ class Cart extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          titleSpacing: 20,
           title: TitleName(title: 'سلتي'),
-          leading: TextButton(
-            onPressed: () {
-              Get.back();
-            },
-            child: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-          ),
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),

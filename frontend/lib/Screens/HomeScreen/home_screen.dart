@@ -7,7 +7,7 @@ import '../../modules/module_category.dart';
 import '../../shared/components/components.dart';
 import 'build_containers.dart';
 import 'delivery_image.dart';
-import 'package:stop_and_shop/Screens/details/details.dart';
+import 'package:stop_and_shop/Screens/Details/details.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

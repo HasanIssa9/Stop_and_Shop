@@ -10,19 +10,17 @@ class Product {
   final RxBool isFavorite = false.obs;
   final RxBool isCart = false.obs;
 
-  Product(
-      {required String nameProduct,
-      required String imageProduct,
-      required String descriptionProduct,
-      required String categoryProduct,
-      required String priceProduct})
-      : nameProduct = nameProduct.obs,
+  Product({
+    required String nameProduct,
+    required String imageProduct,
+    required String descriptionProduct,
+    required String categoryProduct,
+    required String priceProduct,
+  })  : nameProduct = nameProduct.obs,
         imageProduct = imageProduct.obs,
         descriptionProduct = descriptionProduct.obs,
         categoryProduct = categoryProduct.obs,
         priceProduct = priceProduct.obs;
-
- 
 
   isFavoriteChanged() {
     isFavorite.value = true;
