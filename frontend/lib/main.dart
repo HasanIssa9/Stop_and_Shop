@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/Setlocation/set_location.dart';
+import 'package:stop_and_shop/Screens/SplashScreen/splash_screen.dart';
 
 import 'Screens/FirstScreen/first_screen.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FirstScreen(),
+      home: SplashScreen(),
 
     );
   }
