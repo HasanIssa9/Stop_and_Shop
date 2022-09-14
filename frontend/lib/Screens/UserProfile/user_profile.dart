@@ -39,14 +39,14 @@ class UserProfile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'اهلا ,${fullName.text} ',
+                              'اهلا ,${Database.prefs.getString('fullName')} ',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
                               ),
                             ),
                             Text(
-                              '${phoneNumber.text}',
+                              phoneNumber.text,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
@@ -109,8 +109,10 @@ class UserProfile extends StatelessWidget {
                                                 User.update(
                                                   Database.prefs
                                                       .getString('email')!,
-                                                  Database.prefs.getString('password')!,
-                                                  fullName.text,
+                                                  Database.prefs
+                                                      .getString('password')!,
+                                                  Database.prefs
+                                                      .getString('fullName')!,
                                                   phoneNumber.text,
                                                 );
                                               },

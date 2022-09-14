@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
                Text(
-                'مرحبا ${Database.prefs.getString('email')}',
+                'مرحبا ${Database.prefs.getString('fullName')}',
                 style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
