@@ -5,6 +5,7 @@ import 'package:stop_and_shop/Services/auth_service/auth.dart';
 import 'package:stop_and_shop/style/colors.dart';
 
 import '../../Services/local_database/shared_preferences.dart';
+import '../../modules/module_user.dart';
 import '../../shared/components/components.dart';
 import '../CheckScreens/contents.dart';
 import '../CheckScreens/login.dart';
@@ -38,10 +39,18 @@ class UserProfile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'اهلا ,${Database.prefs.getString('email')} ',
+                              'اهلا ,${fullName.text} ',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
+                              ),
+                            ),
+                            Text(
+                              '${phoneNumber.text}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: Colors.grey,
                               ),
                             ),
                             Text(
@@ -96,7 +105,15 @@ class UserProfile extends StatelessWidget {
                                                   controller: phoneNumber),
                                             ),
                                             TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                User.update(
+                                                  Database.prefs
+                                                      .getString('email')!,
+                                                  Database.prefs.getString('password')!,
+                                                  fullName.text,
+                                                  phoneNumber.text,
+                                                );
+                                              },
                                               child: Container(
                                                 padding:
                                                     const EdgeInsets.symmetric(
@@ -184,7 +201,7 @@ class UserProfile extends StatelessWidget {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Spacer(),
+                          const Spacer(),
                           TextButton(
                               onPressed: () {
                                 AuthService.signOut();

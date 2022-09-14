@@ -29,7 +29,7 @@ class Favorites extends StatelessWidget {
         body: (Database.prefs.getString('email')!.isNotEmpty)
             ? Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

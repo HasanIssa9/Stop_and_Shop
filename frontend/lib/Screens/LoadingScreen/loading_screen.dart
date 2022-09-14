@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/FirstScreen/first_screen.dart';
 import 'package:stop_and_shop/Screens/SplashScreen/splash_screen.dart';
+import 'package:stop_and_shop/shared/components/components.dart';
 
 import '../../Services/auth_service/auth.dart';
 import '../../Services/local_database/shared_preferences.dart';
@@ -28,9 +29,16 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     login();
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+    return  Scaffold(
+      body: Column(
+        children:  [
+          BuildLogo(),
+          const Expanded(
+            child:  Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ],
       ),
     );
   }
