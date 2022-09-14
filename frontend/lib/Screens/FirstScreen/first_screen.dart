@@ -4,7 +4,7 @@ import 'package:stop_and_shop/Screens/AllScreen/AllScreen.dart';
 import 'package:stop_and_shop/shared/components/components.dart';
 import 'package:stop_and_shop/style/colors.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:stop_and_shop/Services/local_database/shared_preferences.dart';
 import '../CheckScreens/login.dart';
 import '../CheckScreens/register.dart';
 
@@ -122,6 +122,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   TextButton(
                     onPressed: () {
                       Get.to(const AllScreen());
+                      Database.prefs.setString('email', '');
                     },
                     child: const Text(
                       'تخطي الان',

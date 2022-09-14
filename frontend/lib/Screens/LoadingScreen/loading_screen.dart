@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/FirstScreen/first_screen.dart';
+import 'package:stop_and_shop/Screens/SplashScreen/splash_screen.dart';
 
 import '../../Services/auth_service/auth.dart';
 import '../../Services/local_database/shared_preferences.dart';
@@ -17,10 +18,10 @@ class Loading extends StatelessWidget {
       if(email != null && password != null){
         AuthService.signIn(email: email, password: password);
       }else{
-        Get.offAll(FirstScreen());
+        Get.offAll(SplashScreen());
       }
     }catch (e){
-      Get.offAll(FirstScreen());
+      Get.offAll(SplashScreen());
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stop_and_shop/modules/module_favorite.dart';
 import 'package:stop_and_shop/shared/components/components.dart';
 import '../../Services/local_database/shared_preferences.dart';
 import '../../modules/module_product.dart';
@@ -46,14 +47,13 @@ class Favorites extends StatelessWidget {
                           children: [
                             Wrap(
                               alignment: WrapAlignment.center,
-                              children: Product.products
-                                  .where((e) => e.isFavorite.value == true)
+                              children: FavoriteModule.favorites
                                   .map((e) => GestureDetector(
                                       onTap: () {
                                         Get.to(Details(
-                                          product: e,
+                                          product: e.product,
                                         ));
-                                        e.isEdit.value = false;
+                                        e.product.isEdit.value = false;
                                       },
                                       child: BuildItem(
                                         imageUrl: e.imageProduct.value,
@@ -61,7 +61,7 @@ class Favorites extends StatelessWidget {
                                         categoryProduct:
                                             e.categoryProduct.value,
                                         price: e.priceProduct.value,
-                                        product: e,
+                                        product: e.product,
                                       )))
                                   .toList(),
                             )

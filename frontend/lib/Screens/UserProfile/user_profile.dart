@@ -184,7 +184,7 @@ class UserProfile extends StatelessWidget {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text("about ver:0.1 beta"),
+                          Spacer(),
                           TextButton(
                               onPressed: () {
                                 AuthService.signOut();

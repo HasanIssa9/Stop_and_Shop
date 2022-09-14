@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stop_and_shop/modules/module_cart.dart';
+import 'package:stop_and_shop/modules/module_favorite.dart';
 import 'package:stop_and_shop/style/colors.dart';
 import 'package:stop_and_shop/Screens/HomeScreen/build_containers.dart';
 
@@ -82,9 +83,20 @@ class Details extends StatelessWidget {
                                     )),
                           trailing: IconButton(
                               onPressed: () {
-                                (product.isFavorite.value == true)
-                                    ? product.isFavorite.value = false
-                                    : product.isFavoriteChanged();
+                                if (product.isFavorite.value == true) {
+                                  product.isFavorite.value = false;
+                                  FavoriteModule.favorites.removeWhere((e) =>
+                                      e.nameProduct.value ==
+                                      product.nameProduct.value);
+                                } else {
+                                  product.isFavoriteChanged();
+                                  FavoriteModule.add(
+                                    product.nameProduct.value,
+                                    product.imageProduct.value,
+                                    product.categoryProduct.value,
+                                    product.priceProduct.value,
+                                  );
+                                }
                               },
                               icon: (product.isFavorite.value == false)
                                   ? const Icon(
