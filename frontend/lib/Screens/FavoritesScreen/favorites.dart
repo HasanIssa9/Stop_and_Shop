@@ -53,6 +53,7 @@ class Favorites extends StatelessWidget {
                                         Get.to(Details(
                                           product: e,
                                         ));
+                                        e.isEdit.value = false;
                                       },
                                       child: BuildItem(
                                         imageUrl: e.imageProduct.value,

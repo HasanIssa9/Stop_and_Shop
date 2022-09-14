@@ -57,18 +57,29 @@ class Details extends StatelessWidget {
                                       )
                                     : null;
                               },
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal:15),
-                                decoration: BoxDecoration(
-                                    color: greenColor,
-                                    borderRadius: BorderRadius.circular(16)),
-                                child: const Text(
-                                  'حفظ',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
-                                ),
-                              )),
+                              child: (product.isEdit.value == false)
+                                  ? IconButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      icon: const Icon(
+                                        Icons.arrow_back_ios,
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  : Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      decoration: BoxDecoration(
+                                          color: greenColor,
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      child: const Text(
+                                        'حفظ',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
+                                      ),
+                                    )),
                           trailing: IconButton(
                               onPressed: () {
                                 (product.isFavorite.value == true)
@@ -179,6 +190,7 @@ class Details extends StatelessWidget {
                                               Get.to(Details(
                                                 product: e,
                                               ));
+                                              e.isEdit.value = false;
                                             },
                                             child: BuildItem(
                                               imageUrl: e.imageProduct.value,

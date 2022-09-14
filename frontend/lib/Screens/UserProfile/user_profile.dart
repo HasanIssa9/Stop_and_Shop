@@ -36,17 +36,17 @@ class UserProfile extends StatelessWidget {
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
-                              'اهلا , مرتضى ',
-                              style: TextStyle(
+                              'اهلا ,${Database.prefs.getString('email')} ',
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
                               ),
                             ),
                             Text(
-                              'anything@gmail.com',
-                              style: TextStyle(
+                              '${Database.prefs.getString('email')}',
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                                 color: Colors.grey,
@@ -227,7 +227,9 @@ class UserProfile extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         ContainerDesgin(
                           color: greenColor,
                           child: TextButton(

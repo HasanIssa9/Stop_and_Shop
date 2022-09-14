@@ -8,6 +8,7 @@ import '../../shared/components/components.dart';
 import 'build_containers.dart';
 import 'delivery_image.dart';
 import 'package:stop_and_shop/Screens/Details/details.dart';
+import 'package:stop_and_shop/Services/local_database/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,15 +33,15 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "مرحبا علي ",
-                style: TextStyle(
+               Text(
+                'مرحبا ${Database.prefs.getString('email')}',
+                style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 25),
               ),
               const Text(
-                "ابحث عن الطعام الطازج وقتما تشاء",
+                'ابحث عن الطعام الطازج وقتما تشاء',
                 style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
@@ -70,7 +71,8 @@ class HomePage extends StatelessWidget {
                         shrinkWrap: true,
                         children: Category.categories
                             .map(
-                              (e) => GestureDetector(
+                              (e) =>
+                              GestureDetector(
                                 onTap: () {
                                   Get.to(Categories(
                                     category: e,
@@ -81,7 +83,7 @@ class HomePage extends StatelessWidget {
                                   image: e.imageCategory,
                                 ),
                               ),
-                            )
+                        )
                             .toList(),
                       ),
                     ),
@@ -97,20 +99,22 @@ class HomePage extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           children: Product.products
-                              .map((e) => GestureDetector(
-                                    onTap: () {
-                                      Get.to(Details(
-                                        product: e,
-                                      ));
+                              .map((e) =>
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(Details(
+                                      product: e
+                                  ));
+                                  e.isEdit.value = false;
                                     },
-                                    child: BuildItem(
-                                      imageUrl: e.imageProduct.value,
-                                      nameProduct: e.nameProduct.value,
-                                      categoryProduct: e.categoryProduct.value,
-                                      price: e.priceProduct.value,
-                                      product: e,
-                                    ),
-                                  ))
+                                child: BuildItem(
+                                  imageUrl: e.imageProduct.value,
+                                  nameProduct: e.nameProduct.value,
+                                  categoryProduct: e.categoryProduct.value,
+                                  price: e.priceProduct.value,
+                                  product: e,
+                                ),
+                              ))
                               .toList(),
                         );
                       }),
@@ -127,20 +131,22 @@ class HomePage extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           children: Product.products
-                              .map((e) => GestureDetector(
-                                    onTap: () {
-                                      Get.to(Details(
-                                        product: e,
-                                      ));
-                                    },
-                                    child: BuildItem(
-                                      imageUrl: e.imageProduct.value,
-                                      nameProduct: e.nameProduct.value,
-                                      categoryProduct: e.categoryProduct.value,
-                                      price: e.priceProduct.value,
-                                      product: e,
-                                    ),
-                                  ))
+                              .map((e) =>
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(Details(
+                                    product: e,
+                                  ));
+                                  e.isEdit.value = false;
+                                },
+                                child: BuildItem(
+                                  imageUrl: e.imageProduct.value,
+                                  nameProduct: e.nameProduct.value,
+                                  categoryProduct: e.categoryProduct.value,
+                                  price: e.priceProduct.value,
+                                  product: e,
+                                ),
+                              ))
                               .toList(),
                         );
                       }),

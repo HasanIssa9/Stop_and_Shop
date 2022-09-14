@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:stop_and_shop/Screens/AllScreen/AllScreen.dart';
+import 'package:stop_and_shop/Screens/FirstScreen/first_screen.dart';
 import '../../Screens/CheckScreens/login.dart';
 import '../local_database/shared_preferences.dart';
 
@@ -31,6 +32,6 @@ class AuthService{
   static signOut(){
     Database.prefs.remove('email');
     Database.prefs.remove('password');
-    Get.offAll(Login());
+    Get.offAll(const FirstScreen());
   }
 }

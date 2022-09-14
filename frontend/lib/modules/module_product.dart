@@ -9,6 +9,7 @@ class Product {
   final RxDouble weightProduct = 0.5.obs;
   final RxBool isFavorite = false.obs;
   final RxBool isCart = false.obs;
+  final RxBool isEdit = false.obs;
 
   Product({
     required String nameProduct,
@@ -28,6 +29,10 @@ class Product {
 
   isCartChanged() {
     isCart.value = true;
+  }
+
+  isEditItemCart() {
+    isEdit.value = true;
   }
 
   static RxList<Product> products = <Product>[
