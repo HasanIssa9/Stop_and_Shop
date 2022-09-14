@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/AllScreen/AllScreen.dart';
+import 'package:stop_and_shop/Screens/HomeScreen/home_screen.dart';
 import 'package:stop_and_shop/shared/components/components.dart';
 import 'package:stop_and_shop/style/colors.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -92,6 +93,9 @@ class _FirstScreenState extends State<FirstScreen> {
                     child: TextButton(
                       onPressed: () async {
                         await _googleSignIn.signIn();
+                        // if (user != null) {
+                        //   Get.to(AllScreen());
+                        // }
                         setState(() {
                           
                         });
