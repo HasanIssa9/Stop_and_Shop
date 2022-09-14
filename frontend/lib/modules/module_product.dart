@@ -10,6 +10,7 @@ class Product {
   final RxBool isFavorite = false.obs;
   final RxBool isCart = false.obs;
   final RxBool isEdit = false.obs;
+  static final RxBool isSearch = false.obs;
 
   Product({
     required String nameProduct,
@@ -27,6 +28,10 @@ class Product {
     isFavorite.value = true;
   }
 
+  static isSearchChanged() {
+    isSearch.value = true;
+  }
+
   isCartChanged() {
     isCart.value = true;
   }
@@ -34,6 +39,8 @@ class Product {
   isEditItemCart() {
     isEdit.value = true;
   }
+
+  static RxString search = ''.obs;
 
   static RxList<Product> products = <Product>[
     Product(

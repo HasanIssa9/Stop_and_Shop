@@ -29,11 +29,11 @@ class HomePage extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Text(
+              Text(
                 'مرحبا ${Database.prefs.getString('fullName')}',
                 style: const TextStyle(
                     color: Colors.black,
@@ -54,105 +54,131 @@ class HomePage extends StatelessWidget {
                 height: 20,
               ),
               Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    const DeliveryImage(),
-                    // -------------------------first section--------------------------
-                    Row(
-                      children: [TitleName(title: 'الفئات')],
-                    ),
-                    SizedBox(
-                      height: 110,
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        children: Category.categories
-                            .map(
-                              (e) =>
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(Categories(
-                                    category: e,
-                                  ));
-                                },
-                                child: BuildCategory(
-                                  name: e.nameCategory,
-                                  image: e.imageCategory,
-                                ),
+                child: Obx(() {
+                  return ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: (Product.isSearch.value == true)
+                        ? [
+                            const DeliveryImage(),
+                            // -------------------------first section--------------------------
+                            Row(
+                              children: [TitleName(title: 'الفئات')],
+                            ),
+                            SizedBox(
+                              height: 110,
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                children: Category.categories
+                                    .map(
+                                      (e) => GestureDetector(
+                                        onTap: () {
+                                          Get.to(Categories(
+                                            category: e,
+                                          ));
+                                        },
+                                        child: BuildCategory(
+                                          name: e.nameCategory,
+                                          image: e.imageCategory,
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
                               ),
-                        )
-                            .toList(),
-                      ),
-                    ),
+                            ),
 
-                    Row(
-                      children: [TitleName(title: 'افضل المنتجات')],
-                    ),
-                    SizedBox(
-                      height: 195,
-                      child: Obx(() {
-                        return ListView(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: Product.products
-                              .map((e) =>
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(Details(
-                                      product: e
-                                  ));
-                                  e.isEdit.value = false;
-                                    },
-                                child: BuildItem(
-                                  imageUrl: e.imageProduct.value,
-                                  nameProduct: e.nameProduct.value,
-                                  categoryProduct: e.categoryProduct.value,
-                                  price: e.priceProduct.value,
-                                  product: e,
-                                ),
-                              ))
-                              .toList(),
-                        );
-                      }),
-                    ),
+                            Row(
+                              children: [TitleName(title: 'افضل المنتجات')],
+                            ),
+                            SizedBox(
+                              height: 195,
+                              child: Obx(() {
+                                return ListView(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  children: Product.products
+                                      .map((e) => GestureDetector(
+                                            onTap: () {
+                                              Get.to(Details(product: e));
+                                              e.isEdit.value = false;
+                                            },
+                                            child: BuildItem(
+                                              imageUrl: e.imageProduct.value,
+                                              nameProduct: e.nameProduct.value,
+                                              categoryProduct:
+                                                  e.categoryProduct.value,
+                                              price: e.priceProduct.value,
+                                              product: e,
+                                            ),
+                                          ))
+                                      .toList(),
+                                );
+                              }),
+                            ),
 
-                    Row(
-                      children: [TitleName(title: 'منتجات عليها خصم')],
-                    ),
-                    SizedBox(
-                      height: 195,
-                      child: Obx(() {
-                        return ListView(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: Product.products
-                              .map((e) =>
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(Details(
-                                    product: e,
-                                  ));
-                                  e.isEdit.value = false;
-                                },
-                                child: BuildItem(
-                                  imageUrl: e.imageProduct.value,
-                                  nameProduct: e.nameProduct.value,
-                                  categoryProduct: e.categoryProduct.value,
-                                  price: e.priceProduct.value,
-                                  product: e,
-                                ),
-                              ))
-                              .toList(),
-                        );
-                      }),
-                    ),
-                  ],
-                ),
+                            Row(
+                              children: [TitleName(title: 'منتجات عليها خصم')],
+                            ),
+                            SizedBox(
+                              height: 195,
+                              child: Obx(() {
+                                return ListView(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  children: Product.products
+                                      .map((e) => GestureDetector(
+                                            onTap: () {
+                                              Get.to(Details(
+                                                product: e,
+                                              ));
+                                              e.isEdit.value = false;
+                                            },
+                                            child: BuildItem(
+                                              imageUrl: e.imageProduct.value,
+                                              nameProduct: e.nameProduct.value,
+                                              categoryProduct:
+                                                  e.categoryProduct.value,
+                                              price: e.priceProduct.value,
+                                              product: e,
+                                            ),
+                                          ))
+                                      .toList(),
+                                );
+                              }),
+                            ),
+                          ]
+                        : [
+                            Wrap(
+                              alignment: WrapAlignment.center,
+                              children: Product.products
+                                  .where((e) =>
+                                      e.nameProduct.value
+                                          .contains(Product.search) ==
+                                      true)
+                                  .map((e) => GestureDetector(
+                                      onTap: () {
+                                        Get.to(Details(
+                                          product: e,
+                                        ));
+                                        e.isEdit.value = false;
+                                      },
+                                      child: BuildItem(
+                                        imageUrl: e.imageProduct.value,
+                                        nameProduct: e.nameProduct.value,
+                                        categoryProduct:
+                                            e.categoryProduct.value,
+                                        price: e.priceProduct.value,
+                                        product: e,
+                                      )))
+                                  .toList(),
+                            )
+                          ],
+                  );
+                }),
               ),
             ],
           ),
