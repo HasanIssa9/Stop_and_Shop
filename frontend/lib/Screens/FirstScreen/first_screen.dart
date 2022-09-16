@@ -18,6 +18,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
+
   @override
   Widget build(BuildContext context) {
     GoogleSignInAccount? user = _googleSignIn.currentUser;
