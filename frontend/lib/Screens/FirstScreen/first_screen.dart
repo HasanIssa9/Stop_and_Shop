@@ -93,12 +93,15 @@ class _FirstScreenState extends State<FirstScreen> {
                     child: TextButton(
                       onPressed: () async {
                         await _googleSignIn.signIn();
-                        // if (user != null) {
-                        //   Get.to(AllScreen());
-                        // }
-                        setState(() {
-                          
-                        });
+                        if (user != null) {
+                          print(user.displayName);
+                          print(user.email);
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return AllScreen();
+                          }));
+                        }
+                        setState(() {});
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
