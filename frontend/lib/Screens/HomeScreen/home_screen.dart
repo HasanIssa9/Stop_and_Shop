@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                   return ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    children: (Product.isSearch.value == true)
+                    children: (Product.isSearch.value == false)
                         ? [
                             const DeliveryImage(),
                             // -------------------------first section--------------------------

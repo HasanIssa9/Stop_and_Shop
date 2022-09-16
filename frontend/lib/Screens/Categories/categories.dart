@@ -52,7 +52,7 @@ class Categories extends StatelessWidget {
             // ------------------------------- List the product ---------------------------------
             Expanded(child: Obx(() {
               return ListView(
-                children: (Product.isSearch.value == true)
+                children: (Product.isSearch.value == false)
                     ? [
                         Wrap(
                           alignment: WrapAlignment.center,

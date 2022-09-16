@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/Locations/locations.dart';
 import 'package:stop_and_shop/Services/auth_service/auth.dart';
 import 'package:stop_and_shop/style/colors.dart';
-
 import '../../Services/local_database/shared_preferences.dart';
 import '../../modules/module_user.dart';
 import '../../shared/components/components.dart';
@@ -13,9 +12,10 @@ import '../CheckScreens/register.dart';
 
 class UserProfile extends StatelessWidget {
   UserProfile({Key? key}) : super(key: key);
-
   final TextEditingController fullName = TextEditingController();
+
   final TextEditingController phoneNumber = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class UserProfile extends StatelessWidget {
           ),
           body: (Database.prefs.getString('email')!.isNotEmpty)
               ? Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(children: [
                     Row(
                       children: [
@@ -42,7 +42,7 @@ class UserProfile extends StatelessWidget {
                               'اهلا ,${Database.prefs.getString('fullName')} ',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 25,
+                                fontSize: 20,
                               ),
                             ),
                             Text(
@@ -67,96 +67,102 @@ class UserProfile extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-                              width: 70,
-                              height: 70,
+                              width: 50,
+                              height: 50,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(35),
-                                  image: const DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage(
-                                          'assets/images/img_2.png'))),
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                              child: const Icon(
+                                Icons.person,
+                                size: 35,
+                              ),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                final alertAddName = Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: AlertDialog(
-                                      title: const Text('تعديل معلوماتي'),
-                                      content: SizedBox(
-                                        height: 200,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Divider(
-                                              color: Colors.black,
-                                              height: 5,
-                                            ),
-                                            ContainerDesgin(
-                                              color: Colors.white,
-                                              child: MyTextField(
-                                                  label: 'الاسم الكامل',
-                                                  controller: fullName),
-                                            ),
-                                            ContainerDesgin(
-                                              color: Colors.white,
-                                              child: MyTextField(
-                                                  label: 'رقم الهاتف',
-                                                  controller: phoneNumber),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                User.update(
-                                                  Database.prefs
-                                                      .getString('email')!,
-                                                  Database.prefs
-                                                      .getString('password')!,
-                                                  Database.prefs
-                                                      .getString('fullName')!,
-                                                  phoneNumber.text,
-                                                );
-                                              },
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10,
-                                                        vertical: 3),
-                                                decoration: BoxDecoration(
-                                                    color: greenColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16)),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: const [
-                                                    Text(
-                                                      'حفظ التغيرات',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                    Icon(
-                                                      Icons.save,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ],
-                                                ),
+                            SizedBox(
+                              height: 40,
+                              child: TextButton(
+                                onPressed: () {
+                                  final alertAddName = Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: AlertDialog(
+                                        title: const Text('تعديل معلوماتي'),
+                                        content: SizedBox(
+                                          height: 200,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Divider(
+                                                color: Colors.black,
+                                                height: 5,
                                               ),
-                                            )
-                                          ],
+                                              ContainerDesgin(
+                                                color: Colors.white,
+                                                child: MyTextField(
+                                                    label: 'الاسم الكامل',
+                                                    controller: fullName),
+                                              ),
+                                              ContainerDesgin(
+                                                color: Colors.white,
+                                                child: MyTextField(
+                                                    label: 'رقم الهاتف',
+                                                    controller: phoneNumber),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  User.update(
+                                                    Database.prefs
+                                                        .getString('email')!,
+                                                    Database.prefs
+                                                        .getString('password')!,
+                                                    Database.prefs
+                                                        .getString('fullName')!,
+                                                    phoneNumber.text,
+                                                  );
+                                                },
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 3),
+                                                  decoration: BoxDecoration(
+                                                      color: greenColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: const [
+                                                      Text(
+                                                        'حفظ التغيرات',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                      Icon(
+                                                        Icons.save,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ));
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext ctx) {
-                                      return alertAddName;
-                                    });
-                              },
-                              child: Text(
-                                'تعديل',
-                                style: TextStyle(color: greenColor),
+                                      ));
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) {
+                                        return alertAddName;
+                                      });
+                                },
+                                child: Text(
+                                  'تعديل',
+                                  style: TextStyle(color: greenColor),
+                                ),
                               ),
                             ),
                           ],
@@ -169,8 +175,7 @@ class UserProfile extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 20, horizontal: 10),
-                      child: Expanded(
-                          child: Column(
+                      child: Column(
                         children: [
                           GestureDetector(
                             onTap: () {
@@ -197,7 +202,7 @@ class UserProfile extends StatelessWidget {
                             ),
                           ),
                         ],
-                      )),
+                      ),
                     ),
                     const Spacer(),
                     Row(
