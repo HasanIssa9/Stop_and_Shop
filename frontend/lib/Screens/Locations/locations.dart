@@ -43,7 +43,7 @@ class Locations extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(15),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 "اختر احد مواقعك ",
@@ -52,17 +52,20 @@ class Locations extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
-              Expanded(
-                  child: Obx(() {
-                      return ListView(
-                        children: LocationModule.locations.map((e) => BuildSingleLocations(
-                          nameLocation: e.nameLocation.value,
-                              location: e.location.value, )).toList(),
-                      );
-                    }
-                  )),
+              Expanded(child: Obx(() {
+                return ListView(
+                  children: LocationModule.locations
+                      .map((e) => BuildSingleLocations(
+                            nameLocation: e.nameLocation.value,
+                            location: e.location.value,
+                          ))
+                      .toList(),
+                );
+              })),
               Expanded(
                   child: Column(
+
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "__________________________ او  ________________________",
@@ -128,7 +131,8 @@ class Locations extends StatelessWidget {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          LocationModule.add(nameLocation.text, location.text);
+                                          LocationModule.add(
+                                              nameLocation.text, location.text);
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(

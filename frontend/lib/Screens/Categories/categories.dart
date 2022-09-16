@@ -52,28 +52,56 @@ class Categories extends StatelessWidget {
             // ------------------------------- List the product ---------------------------------
             Expanded(child: Obx(() {
               return ListView(
-                children: [
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    children: Product.products
-                        .where((e) =>
-                            e.categoryProduct.value == category.nameCategory)
-                        .map((e) => GestureDetector(
-                            onTap: () {
-                              Get.to(Details(
-                                product: e,
-                              ));
-                            },
-                            child: BuildItem(
-                              imageUrl: e.imageProduct.value,
-                              nameProduct: e.nameProduct.value,
-                              categoryProduct: e.categoryProduct.value,
-                              price: e.priceProduct.value,
-                              product: e,
-                            )))
-                        .toList(),
-                  )
-                ],
+                children: (Product.isSearch.value == true)
+                    ? [
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          children: Product.products
+                              .where((e) =>
+                                  e.categoryProduct.value ==
+                                  category.nameCategory)
+                              .map((e) => GestureDetector(
+                                  onTap: () {
+                                    Get.to(Details(
+                                      product: e,
+                                    ));
+                                  },
+                                  child: BuildItem(
+                                    imageUrl: e.imageProduct.value,
+                                    nameProduct: e.nameProduct.value,
+                                    categoryProduct: e.categoryProduct.value,
+                                    price: e.priceProduct.value,
+                                    product: e,
+                                  )))
+                              .toList(),
+                        )
+                      ]
+                    : [
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          children: Product.products
+                              .where((e) =>
+                                  e.categoryProduct.value ==
+                                      category.nameCategory &&
+                                  e.nameProduct.value
+                                          .contains(Product.search) ==
+                                      true)
+                              .map((e) => GestureDetector(
+                                  onTap: () {
+                                    Get.to(Details(
+                                      product: e,
+                                    ));
+                                  },
+                                  child: BuildItem(
+                                    imageUrl: e.imageProduct.value,
+                                    nameProduct: e.nameProduct.value,
+                                    categoryProduct: e.categoryProduct.value,
+                                    price: e.priceProduct.value,
+                                    product: e,
+                                  )))
+                              .toList(),
+                        )
+                      ],
               );
             }))
           ]),

@@ -11,7 +11,8 @@ import 'build_cart_item.dart';
 import 'package:stop_and_shop/Services/local_database/shared_preferences.dart';
 
 class Cart extends StatelessWidget {
-  const Cart({Key? key}) : super(key: key);
+  Cart({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +54,6 @@ class Cart extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ----------------------------- Box search ---------------------------------------
-                    const Search(),
                     const SizedBox(
                       height: 15,
                     ),

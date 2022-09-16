@@ -33,10 +33,6 @@ class Favorites extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ----------------------------- Box title ----------------------------------------
-
-                    // ----------------------------- Box search ---------------------------------------
-                    Search(),
                     const SizedBox(
                       height: 15,
                     ),
