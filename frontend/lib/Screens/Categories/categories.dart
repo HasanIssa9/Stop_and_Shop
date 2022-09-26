@@ -23,7 +23,7 @@ class Categories extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            category.nameCategory,
+            category.name,
             style: const TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),
@@ -39,72 +39,92 @@ class Categories extends StatelessWidget {
         ),
         body: Container(
           width: double.infinity,
-          padding: EdgeInsets.all(10),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            // ----------------------------- Box title ----------------------------------------
-
-            // ----------------------------- Box search ---------------------------------------
-            Search(),
-            const SizedBox(
-              height: 15,
-            ),
-            // ------------------------------- List the product ---------------------------------
-            Expanded(child: Obx(() {
-              return ListView(
-                children: (Product.isSearch.value == false)
-                    ? [
-                        Wrap(
-                          alignment: WrapAlignment.center,
-                          children: Product.products
-                              .where((e) =>
-                                  e.categoryProduct.value ==
-                                  category.nameCategory)
-                              .map((e) => GestureDetector(
-                                  onTap: () {
-                                    Get.to(Details(
-                                      product: e,
-                                    ));
-                                  },
-                                  child: BuildItem(
-                                    imageUrl: e.imageProduct.value,
-                                    nameProduct: e.nameProduct.value,
-                                    categoryProduct: e.categoryProduct.value,
-                                    price: e.priceProduct.value,
-                                    product: e,
-                                  )))
-                              .toList(),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Search(),
+              const SizedBox(
+                height: 15,
+              ),
+              // ------------------------------- List the product ---------------------------------
+              Expanded(
+                child: Obx(() {
+                  return (Product.products
+                              .where((e) => e.category.value == category.name)
+                              .isEmpty ==
+                          false)
+                      ? ListView(
+                          children: (Product.isSearch.value == false)
+                              ? [
+                                  Wrap(
+                                    alignment: WrapAlignment.center,
+                                    children: Product.products
+                                        .where((e) =>
+                                            e.category.value == category.name)
+                                        .map((e) => GestureDetector(
+                                            onTap: () {
+                                              Get.to(Details(
+                                                product: e,
+                                              ));
+                                            },
+                                            child: BuildItem(
+                                              imageUrl: e.image.value,
+                                              nameProduct: e.name.value,
+                                              categoryProduct: e.category.value,
+                                              price: e.price.value,
+                                              product: e,
+                                            )))
+                                        .toList(),
+                                  )
+                                ]
+                              : [
+                                  Wrap(
+                                    alignment: WrapAlignment.center,
+                                    children: Product.products
+                                        .where((e) =>
+                                            e.category.value == category.name &&
+                                            e.name.value
+                                                    .contains(Product.search) ==
+                                                true)
+                                        .map((e) => GestureDetector(
+                                            onTap: () {
+                                              Get.to(Details(
+                                                product: e,
+                                              ));
+                                            },
+                                            child: BuildItem(
+                                              imageUrl: e.image.value,
+                                              nameProduct: e.name.value,
+                                              categoryProduct: e.category.value,
+                                              price: e.price.value,
+                                              product: e,
+                                            )))
+                                        .toList(),
+                                  )
+                                ],
                         )
-                      ]
-                    : [
-                        Wrap(
-                          alignment: WrapAlignment.center,
-                          children: Product.products
-                              .where((e) =>
-                                  e.categoryProduct.value ==
-                                      category.nameCategory &&
-                                  e.nameProduct.value
-                                          .contains(Product.search) ==
-                                      true)
-                              .map((e) => GestureDetector(
-                                  onTap: () {
-                                    Get.to(Details(
-                                      product: e,
-                                    ));
-                                  },
-                                  child: BuildItem(
-                                    imageUrl: e.imageProduct.value,
-                                    nameProduct: e.nameProduct.value,
-                                    categoryProduct: e.categoryProduct.value,
-                                    price: e.priceProduct.value,
-                                    product: e,
-                                  )))
-                              .toList(),
-                        )
-                      ],
-              );
-            }))
-          ]),
+                      : Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.hourglass_empty,
+                                color: Colors.grey,
+                                size: 100,
+                              ),
+                              Text(
+                                'لايوجد منتجات من هذه الفئة',
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 30),
+                              )
+                            ],
+                          ),
+                        );
+                }),
+              ),
+            ],
+          ),
         ),
       ),
     );
