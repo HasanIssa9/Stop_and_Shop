@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/HomeScreen/build_containers.dart';
 import 'package:stop_and_shop/Screens/HomeScreen/search.dart';
 import 'package:stop_and_shop/modules/module_product.dart';
-import 'package:http/http.dart';
+
 
 import '../../modules/module_category.dart';
 import '../Details/details.dart';
