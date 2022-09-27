@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     Product.getProducts();
+    Category.getCategories();
   }
 
   @override
@@ -84,29 +85,33 @@ class _HomePageState extends State<HomePage> {
                                     Row(
                                       children: [TitleName(title: 'الفئات')],
                                     ),
-                                    // SizedBox(
-                                    //   height: 110,
-                                    //   child: ListView(
-                                    //     physics: const BouncingScrollPhysics(),
-                                    //     scrollDirection: Axis.horizontal,
-                                    //     shrinkWrap: true,
-                                    //     children: Category.categories
-                                    //         .map(
-                                    //           (e) => GestureDetector(
-                                    //             onTap: () {
-                                    //               Get.to(Categories(
-                                    //                 category: e,
-                                    //               ));
-                                    //             },
-                                    //             child: BuildCategory(
-                                    //               name: e.nameCategory,
-                                    //               image: e.imageCategory,
-                                    //             ),
-                                    //           ),
-                                    //         )
-                                    //         .toList(),
-                                    //   ),
-                                    // ),
+                                    FutureBuilder(
+                                        future: Category.getCategories(),
+                                        builder: (BuildContext context, AsyncSnapshot snapshot1){
+                                        return SizedBox(
+                                          height: 110,
+                                          child: ListView.builder(
+                                            itemCount: snapshot1.data.length,
+                                            physics: const BouncingScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Get.to(Categories(
+                                                    category: snapshot1.data[index],
+                                                  ));
+                                                },
+                                                child: BuildCategory(
+                                                  name:  snapshot1.data[index].name,
+                                                  image:  snapshot1.data[index].image,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      }
+                                    ),
 
                                     Row(
                                       children: [

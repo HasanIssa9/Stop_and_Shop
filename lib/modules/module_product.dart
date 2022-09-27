@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'package:dio/dio.dart';
-import 'dart:convert';
-import 'package:get/get.dart' hide Response;
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:stop_and_shop/Services/API/api.dart';
 import 'package:stop_and_shop/modules/module_category.dart';
 
 class Product {
@@ -80,8 +78,8 @@ class Product {
 
   static Future<RxList<Product>> getProducts() async {
     var res = await http
-        .get(Uri.parse('http://10.0.2.2:8000/api/product/all_products'));
-    print(res.body);
+        .get(Uri.parse(Api.productsUrl));
+
 
     products = productFromJson(res.body).obs;
     return products;

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:stop_and_shop/Services/API/api.dart';
 
 class Category {
   Category({
@@ -14,11 +16,13 @@ class Category {
   final String image;
   final bool? isActive;
   final List<dynamic> children;
-  List<Category> categoryFromJson(String str) =>
+
+  static List<Category> categoryFromJson(String str) =>
       List<Category>.from(json.decode(str).map((x) => Category.fromJson(x)));
 
-  String categoryToJson(List<Category> data) =>
+  static String categoryToJson(List<Category> data) =>
       json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         name: json["name"],
         description: json["description"],
@@ -34,4 +38,12 @@ class Category {
         "is_active": isActive,
         "children": List<dynamic>.from(children.map((x) => x)),
       };
+
+  static Future<List<Category>> getCategories() async {
+    var res = await http
+        .get(Uri.parse(Api.categoriesUrl));
+
+    List<Category> categories = categoryFromJson(res.body);
+    return categories;
+  }
 }
