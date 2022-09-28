@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stop_and_shop/modules/module_category.dart';
 import 'package:stop_and_shop/modules/module_product.dart';
 
 import '../../modules/module_favorite.dart';
@@ -16,14 +17,14 @@ class BuildItem extends StatelessWidget {
   final String nameProduct;
   final String categoryProduct;
   final String imageUrl;
-  final String price;
+  final int price;
   final Product product;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
-      width: 130,
+      width: 160,
       decoration: BoxDecoration(
           color: const Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(16),
@@ -43,10 +44,10 @@ class BuildItem extends StatelessWidget {
                     topRight: Radius.circular(16),
                     topLeft: Radius.circular(16)),
                 image: DecorationImage(
-                    fit: BoxFit.fill, image: AssetImage(imageUrl))),
+                    fit: BoxFit.fill, image: NetworkImage(imageUrl))),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 0, right: 10),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -59,7 +60,7 @@ class BuildItem extends StatelessWidget {
                           fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                     Text(
-                      categoryProduct,
+                      '$categoryProduct',
                       style: const TextStyle(color: Colors.grey),
                     ),
                     Text(
@@ -71,36 +72,34 @@ class BuildItem extends StatelessWidget {
                 Container(
                   height: 90,
                   alignment: Alignment.bottomCenter,
-                  child: Obx( () {
-                      return IconButton(
-                          onPressed: () {
-                            if (product.isFavorite.value == true) {
-                              product.isFavorite.value = false;
-                              FavoriteModule.favorites.removeWhere((e) =>
-                              e.nameProduct.value ==
-                                  product.nameProduct.value);
-                            } else {
-                              product.isFavoriteChanged();
-                              FavoriteModule.add(
-                                product.nameProduct.value,
-                                product.imageProduct.value,
-                                product.categoryProduct.value,
-                                product.priceProduct.value,
-                              );
-                            }
-                          },
-                          icon: (product.isFavorite.value == false)
-                              ? const Icon(
-                                  Icons.favorite_border,
-                                  size: 25,
-                                )
-                              : const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                  size: 25,
-                                ));
-                    }
-                  ),
+                  child: Obx(() {
+                    return IconButton(
+                        onPressed: () {
+                          if (product.isFavorite.value == true) {
+                            product.isFavorite.value = false;
+                            FavoriteModule.favorites.removeWhere((e) =>
+                                e.nameProduct.value == product.name.value);
+                          } else {
+                            product.isFavoriteChanged();
+                            FavoriteModule.add(
+                              product.name.value,
+                              product.image.value,
+                              product.category.value,
+                              product.price.value
+                            );
+                          }
+                        },
+                        icon: (product.isFavorite.value == false)
+                            ? const Icon(
+                                Icons.favorite_border,
+                                size: 25,
+                              )
+                            : const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                                size: 25,
+                              ));
+                  }),
                 )
               ],
             ),
@@ -120,8 +119,8 @@ class BuildCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
-      margin: const EdgeInsets.only(left: 13, right: 3),
+      width: 90,
+      margin: const EdgeInsets.only(left: 13, right: 3,top: 3,bottom: 3),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.circular(16),

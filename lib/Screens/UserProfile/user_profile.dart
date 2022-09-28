@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stop_and_shop/Screens/Locations/locations.dart';
-import 'package:stop_and_shop/Screens/Mylocation/locations.dart';
 import 'package:stop_and_shop/Services/auth_service/auth.dart';
 import 'package:stop_and_shop/style/colors.dart';
 import '../../Services/local_database/shared_preferences.dart';
@@ -19,9 +18,12 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  final TextEditingController fullName = TextEditingController(text: Database.prefs.getString('fullName'));
-  final TextEditingController email = TextEditingController(text: Database.prefs.getString('email'));
-  final TextEditingController phoneNumber = TextEditingController(text: Database.prefs.getString('phoneNumber'));
+  final TextEditingController fullName =
+      TextEditingController(text: Database.prefs.getString('fullName'));
+  final TextEditingController email =
+      TextEditingController(text: Database.prefs.getString('email'));
+  final TextEditingController phoneNumber =
+      TextEditingController(text: Database.prefs.getString('phoneNumber'));
 
   @override
   Widget build(BuildContext context) {
@@ -73,18 +75,18 @@ class _UserProfileState extends State<UserProfile> {
                         const Spacer(),
                         Column(
                           children: [
-                            // Container(
-                            //   width: 50,
-                            //   height: 50,
-                            //   decoration: BoxDecoration(
-                            //     color: Colors.grey,
-                            //     borderRadius: BorderRadius.circular(35),
-                            //   ),
-                            //   child: const Icon(
-                            //     Icons.person,
-                            //     size: 35,
-                            //   ),
-                            // ),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                              child: const Icon(
+                                Icons.person,
+                                size: 35,
+                              ),
+                            ),
                             SizedBox(
                               height: 40,
                               child: TextButton(
@@ -124,16 +126,11 @@ class _UserProfileState extends State<UserProfile> {
                                               ),
                                               TextButton(
                                                 onPressed: () {
-                                                  User.update(
-                                                    email.text,
-                                                    Database.prefs
-                                                        .getString('password')!,
-                                                    fullName.text,
-                                                    phoneNumber.text,
-                                                  );
-                                                  setState(() {
+                                                  Database.prefs.setString('fullName', fullName.text);
+                                                  Database.prefs.setString('email', email.text);
+                                                  Database.prefs.setString('phoneNumber', phoneNumber.text);
 
-                                                  });
+                                                  setState(() {});
                                                   Get.back();
                                                 },
                                                 child: Container(
@@ -195,7 +192,7 @@ class _UserProfileState extends State<UserProfile> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(MyLocations());
+                              Get.to(Locations());
                             },
                             child: Row(
                               children: const [

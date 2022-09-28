@@ -4,8 +4,6 @@ import 'package:stop_and_shop/Screens/CheckOutScreen/check_out.dart';
 import 'package:stop_and_shop/Screens/CheckScreens/login.dart';
 import 'package:stop_and_shop/Screens/CheckScreens/register.dart';
 import 'package:stop_and_shop/modules/module_cart.dart';
-import 'package:stop_and_shop/modules/module_favorite.dart';
-import 'package:stop_and_shop/modules/module_product.dart';
 import 'package:stop_and_shop/style/colors.dart';
 import '../../shared/components/components.dart';
 import '../HomeScreen/search.dart';
@@ -25,10 +23,10 @@ class Cart extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
           title: TitleName(title: 'سلتي'),
-          titleSpacing: 20,
-          actions: (Database.prefs.getString('phoneNumber')!.isNotEmpty )
+          actions: (Database.prefs.getString('phoneNumber')!.isNotEmpty ||
+                  Database.prefs.getString('email')!.isNotEmpty)
               ? [
-                  Container(
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -37,10 +35,7 @@ class Cart extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16)),
                       child: TextButton(
                         onPressed: () {
-                          if( !CartModule.products.isEmpty){
-
                           Get.to(const CheckOut());
-                          }
                         },
                         child: const Text(
                           'الدفع',
@@ -76,7 +71,8 @@ class Cart extends StatelessWidget {
                                             (e) => BuildCartItem(
                                               product: e.product,
                                               nameProduct: e.nameProduct.value,
-                                              weightProduct: e.weightProduct.value,
+                                              weightProduct:
+                                                  e.weightProduct.value,
                                               imageUrl: e.imageProduct.value,
                                               price: e.priceProduct.value,
                                             ),
@@ -99,12 +95,15 @@ class Cart extends StatelessWidget {
                               color: Colors.grey,
                               size: 100,
                             ),
-                            Text('لايوجد منتجات في سلتي',style: TextStyle(color: Colors.grey,fontSize: 30),)
+                            Text(
+                              'لايوجد منتجات في سلتي',
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 30),
+                            )
                           ],
                         ),
                       );
-              }
-            )
+              })
             : Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),

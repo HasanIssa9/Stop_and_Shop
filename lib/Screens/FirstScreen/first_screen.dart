@@ -50,18 +50,14 @@ class _FirstScreenState extends State<FirstScreen> {
                     color: greenColor,
                     child: TextButton(
                       onPressed: () {
-                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Login();
-                        }));
+                        Get.to(Login());
                       },
                       child: Text(
                         'تسجيل الدخول',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: blackColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          
                         ),
                       ),
                     ),
@@ -73,11 +69,7 @@ class _FirstScreenState extends State<FirstScreen> {
                     color: const Color(0xffF1F1F1),
                     child: TextButton(
                       onPressed: () {
-                        // Get.to(Signup());
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Signup();
-                        }));
+                        Get.to(Signup());
                       },
                       child: Text(
                         'تسجيل',
@@ -94,7 +86,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   ),
                   const Text(
                       ' او سجل دخول باستخدام '),
-                  // const Divider(color: Colors.black,),
+                  const Divider(color: Colors.black,),
                   const SizedBox(
                     height: 30,
                   ),
@@ -138,7 +130,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(const AllScreen());
+                      Get.offAll(const AllScreen());
                       Database.prefs.setString('phoneNumber', '');
                       Database.prefs.setString('email', '');
                       Database.prefs.setString('fullName', '');

@@ -21,6 +21,7 @@ class Locations extends StatefulWidget {
 
 class _LocationsState extends State<Locations> {
   var cl;
+
   Future<Position> getLatandlong() async {
     return await Geolocator.getCurrentPosition().then((value) => value);
   }
@@ -76,7 +77,7 @@ class _LocationsState extends State<Locations> {
                       .map((e) => GestureDetector(
                             onTap: () {
                               e.valid = true;
-                              Get.to(CheckOut());
+                              Get.to(const CheckOut());
                             },
                             child: BuildSingleLocations(
                               nameLocation: e.nameLocation.value,
@@ -128,7 +129,7 @@ class _LocationsState extends State<Locations> {
                                             label: 'اسم الموقع',
                                             controller: nameLocation),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       ContainerDesgin(
@@ -137,7 +138,7 @@ class _LocationsState extends State<Locations> {
                                             label: 'رقم الهاتف ',
                                             controller: location),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       TextButton(
@@ -155,11 +156,11 @@ class _LocationsState extends State<Locations> {
                                             print(services);
                                             if (services == false) {
                                               AwesomeDialog(
-                                                  context: context,
-                                                  title: "Services",
-                                                  body: Text(
-                                                      "خدمة الموقع غير مفعلة "))
-                                                ..show();
+                                                      context: context,
+                                                      title: "Services",
+                                                      body: const Text(
+                                                          "خدمة الموقع غير مفعلة "))
+                                                  .show();
                                             }
                                             per = await Geolocator
                                                 .checkPermission();
@@ -172,7 +173,8 @@ class _LocationsState extends State<Locations> {
                                                 LocationPermission.always) {
                                               LocationModule.add(
                                                   nameLocation.text,
-                                                  placemarks[0].administrativeArea!,
+                                                  placemarks[0]
+                                                      .administrativeArea!,
                                                   placemarks[0].locality!,
                                                   placemarks[0].street!,
                                                   location.text,
@@ -185,7 +187,8 @@ class _LocationsState extends State<Locations> {
                                                 LocationPermission.whileInUse) {
                                               LocationModule.add(
                                                   nameLocation.text,
-                                                  placemarks[0].administrativeArea! ,
+                                                  placemarks[0]
+                                                      .administrativeArea!,
                                                   placemarks[0].locality!,
                                                   placemarks[0].street!,
                                                   location.text,
@@ -240,10 +243,7 @@ class _LocationsState extends State<Locations> {
                               fontSize: 14),
                         )),
                   ),
-                  
-                  
-                  
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   Container(

@@ -8,10 +8,10 @@ import 'package:stop_and_shop/Screens/HomeScreen/build_containers.dart';
 import 'package:stop_and_shop/modules/module_product.dart';
 
 import '../../shared/components/components.dart';
-import 'details_1.dart';
+import 'details.dart';
 
-class Details extends StatelessWidget {
-  const Details({
+class Details1 extends StatelessWidget {
+  const Details1({
     Key? key,
     required this.product,
   }) : super(key: key);
@@ -204,7 +204,7 @@ class Details extends StatelessWidget {
                                         .map(
                                           (e) => GestureDetector(
                                             onTap: () {
-                                              Get.to(Details1(
+                                              Get.to(Details(
                                                 product: e,
                                               ));
                                               e.isEdit.value = false;

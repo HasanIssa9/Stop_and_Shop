@@ -11,7 +11,6 @@ import '../Cart/Cart.dart';
 class AllScreen extends StatefulWidget {
   const AllScreen({Key? key}) : super(key: key);
 
-
   @override
   State<AllScreen> createState() => _AllScreenState();
 }
@@ -44,8 +43,8 @@ class _AllScreenState extends State<AllScreen> {
               color: whiteColor,
               activeColor: blackColor,
               tabBackgroundColor: const Color.fromRGBO(0, 128, 0, 100),
-              padding: const EdgeInsets.only(top: 16 , bottom: 16),
-              gap: 0,
+              padding: const EdgeInsets.all(16),
+              gap: 8,
               selectedIndex: selectItem,
               onTabChange: (index) {
                 selectItem = index;

@@ -1,28 +1,36 @@
+import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:stop_and_shop/Services/API/api.dart';
+import 'package:stop_and_shop/modules/module_category.dart';
 
 class Product {
-  final RxString nameProduct;
-  final RxString imageProduct;
-  final RxString descriptionProduct;
-  final RxString categoryProduct;
-  final RxString priceProduct;
-  final RxDouble weightProduct = 0.5.obs;
+  final int? id;
+  final RxString name;
+  final RxString image;
+  final RxString description;
+  final RxString category;
+  final RxInt price;
+  final RxDouble weight;
   final RxBool isFavorite = false.obs;
   final RxBool isCart = false.obs;
   final RxBool isEdit = false.obs;
   static final RxBool isSearch = false.obs;
 
   Product({
-    required String nameProduct,
-    required String imageProduct,
-    required String descriptionProduct,
-    required String categoryProduct,
-    required String priceProduct,
-  })  : nameProduct = nameProduct.obs,
-        imageProduct = imageProduct.obs,
-        descriptionProduct = descriptionProduct.obs,
-        categoryProduct = categoryProduct.obs,
-        priceProduct = priceProduct.obs;
+    this.id,
+    required double weight,
+    required String name,
+    required String image,
+    required String description,
+    required String category,
+    required int price,
+  })  : name = name.obs,
+        image = image.obs,
+        description = description.obs,
+        category = category.obs,
+        price = price.obs,
+        weight = weight.obs;
 
   isFavoriteChanged() {
     isFavorite.value = true;
@@ -42,94 +50,40 @@ class Product {
 
   static RxString search = ''.obs;
 
-  static RxList<Product> products = <Product>[
-    Product(
-      nameProduct: 'موز',
-      imageProduct:
-          'assets/images/banana_item.png',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'بتيتة',
-      imageProduct:
-          'assets/images/Patato_item.png',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'خضروات',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'تفاح',
-      imageProduct:
-          'assets/images/Apple_item.jpg',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'فراولة',
-      imageProduct:
-          'assets/images/strawberry_item.jfif',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'باذينجان',
-      imageProduct:
-          'assets/images/eggplant_item.png',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'خضروات',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'عنب',
-      imageProduct:
-          'assets/images/grape_item.jfif',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'رمان',
-      imageProduct:
-          'assets/images/Pomegranate _item.jfif',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'طماطم',
-      imageProduct:
-          'assets/images/tomato_item.jfif',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'خضروات',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'بطيخ',
-      imageProduct:
-          'assets/images/watermelon_item.jfif',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'خوخ',
-      imageProduct:
-          'assets/images/Peach_item.jfif',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-    Product(
-      nameProduct: 'برتقال',
-      imageProduct:
-          'assets/images/Orange_item.jfif ',
-      descriptionProduct: 'descriptionProduct',
-      categoryProduct: 'فواكه',
-      priceProduct: '2000',
-    ),
-  ].obs;
+  static List<Product> productFromJson(String str) =>
+      List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
+
+  static String productToJson(List<Product> data) =>
+      json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json["id"],
+        category: Category.fromJson(json["category"]).name ,
+        name: json["name"],
+        weight: json["weight"],
+        price: json["price"],
+        description: json["description"],
+        image: json["image"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "category": category.toJson(),
+        "name": name,
+        "weight": weight,
+        "price": price,
+        "description": description,
+        "image": image,
+      };
+
+  static Future<RxList<Product>> getProducts() async {
+    var res = await http
+        .get(Uri.parse(Api.productsUrl));
+
+
+    products = productFromJson(res.body).obs;
+    return products;
+  }
+
+  static RxList<Product> products = <Product>[].obs;
 }

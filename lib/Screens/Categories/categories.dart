@@ -23,11 +23,10 @@ class Categories extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            category.nameCategory,
+            category.name,
             style: const TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          titleSpacing: 10,
           leading: IconButton(
             onPressed: () {
               Get.back();
@@ -40,62 +39,58 @@ class Categories extends StatelessWidget {
         ),
         body: Container(
           width: double.infinity,
-          // padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Text(category.desc),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
               Search(),
               const SizedBox(
                 height: 15,
               ),
               // ------------------------------- List the product ---------------------------------
               Expanded(
-               
-                child:  Container(
-                  width: double.infinity,
-                  child: Obx(() {
-                  return (Product.products.where((e) =>e.categoryProduct.value ==category.nameCategory).isEmpty ==false)
-                      ? GridView.count(
-                        crossAxisCount: 2,
+                child: Obx(() {
+                  return (Product.products
+                              .where((e) => e.category.value == category.name)
+                              .isEmpty ==
+                          false)
+                      ? ListView(
                           children: (Product.isSearch.value == false)
                               ? [
-                                GridView.count(
+                                  GridView.count(
+                                    shrinkWrap: true,
                                     crossAxisCount: 2,
+                                    scrollDirection: Axis.vertical,
+                                    childAspectRatio: 1.0,
                                     children: Product.products
                                         .where((e) =>
-                                            e.categoryProduct.value ==
-                                            category.nameCategory)
+                                            e.category.value == category.name)
                                         .map((e) => GestureDetector(
                                             onTap: () {
                                               Get.to(Details(
                                                 product: e,
                                               ));
                                             },
-                                            child: BuildItem(
-                                              imageUrl: e.imageProduct.value,
-                                              nameProduct: e.nameProduct.value,
-                                              categoryProduct:
-                                                  e.categoryProduct.value,
-                                              price: e.priceProduct.value,
-                                              product: e,
+                                            child: SizedBox(
+                                              height: MediaQuery.of(context).size.height * 0.30,
+                                              child: BuildItem(
+                                                imageUrl: e.image.value,
+                                                nameProduct: e.name.value,
+                                                categoryProduct: e.category.value,
+                                                price: e.price.value,
+                                                product: e,
+                                              ),
                                             )))
                                         .toList(),
                                   )
                                 ]
-                              : [GridView.count(
-                                    crossAxisCount:2,
+                              : [
+                                  Wrap(
+                                    alignment: WrapAlignment.center,
                                     children: Product.products
                                         .where((e) =>
-                                            e.categoryProduct.value ==
-                                                category.nameCategory &&
-                                            e.nameProduct.value
+                                            e.category.value == category.name &&
+                                            e.name.value
                                                     .contains(Product.search) ==
                                                 true)
                                         .map((e) => GestureDetector(
@@ -105,18 +100,16 @@ class Categories extends StatelessWidget {
                                               ));
                                             },
                                             child: BuildItem(
-                                              imageUrl: e.imageProduct.value,
-                                              nameProduct: e.nameProduct.value,
-                                              categoryProduct:
-                                                  e.categoryProduct.value,
-                                              price: e.priceProduct.value,
+                                              imageUrl: e.image.value,
+                                              nameProduct: e.name.value,
+                                              categoryProduct: e.category.value,
+                                              price: e.price.value,
                                               product: e,
                                             )))
                                         .toList(),
                                   )
                                 ],
                         )
-                      
                       : Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -135,9 +128,6 @@ class Categories extends StatelessWidget {
                           ),
                         );
                 }),
-              
-                )
-                
               ),
             ],
           ),

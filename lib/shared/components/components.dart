@@ -6,8 +6,7 @@ Widget BuildLogo({
   String? text,
 }) =>
     Center(
-      child: Stack(
-        children: [
+      child: Stack(children: [
         Container(
           width: double.infinity,
           height: 200,
@@ -23,14 +22,13 @@ Widget BuildLogo({
         SizedBox(
           width: double.infinity,
           height: 200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end, children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 text ?? '',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25 , color: Colors.white),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
           ]),

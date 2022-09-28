@@ -1,32 +1,49 @@
-class Category {
-  final String nameCategory;
-  final String imageCategory;
-  final String  desc;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:stop_and_shop/Services/API/api.dart';
 
+class Category {
   Category({
-    required this.nameCategory,
-    required this.imageCategory,
-    required this.desc,
+    required this.name,
+    required this.description,
+    required this.image,
+    required this.isActive,
+    required this.children,
   });
 
-  static List<Category> categories = [
-    Category(
-      nameCategory: 'فواكه',
-      imageCategory:
-          'https://images.unsplash.com/photo-1570457005402-8ca36f5d411e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI4NzN8MHwxfGFsbHwxODgzMjJ8fHx8fHwyfHwxNjYwODEyNDk2&ixlib=rb-1.2.1&q=80&w=400',
-      desc: "anything"
-    ),
-    Category(
-      nameCategory: 'خضروات',
-      imageCategory:
-          'http://image.shutterstock.com/display_pic_with_logo/101466/112976938/stock-photo-fruits-and-vegetables-at-a-farmers-market-112976938.jpg',
-          desc: "anything"
-    ),
-    Category(
-      nameCategory: 'لحوم',
-      imageCategory:
-          'https://image.shutterstock.com/display_pic_with_logo/1860644/303007805/stock-photo-meat-freshness-butcher-s-shop-303007805.jpghttps://image.shutterstock.com/display_pic_with_logo/1860644/303007805/stock-photo-meat-freshness-butcher-s-shop-303007805.jpg',
-          desc: "anything"
-    ),
-  ];
+  final String name;
+  final String description;
+  final String image;
+  final bool? isActive;
+  final List<dynamic> children;
+
+  static List<Category> categoryFromJson(String str) =>
+      List<Category>.from(json.decode(str).map((x) => Category.fromJson(x)));
+
+  static String categoryToJson(List<Category> data) =>
+      json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+        name: json["name"],
+        description: json["description"],
+        image: json["image"],
+        isActive: json["is_active"],
+        children: List<dynamic>.from(json["children"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "description": description,
+        "image": image,
+        "is_active": isActive,
+        "children": List<dynamic>.from(children.map((x) => x)),
+      };
+
+  static Future<List<Category>> getCategories() async {
+    var res = await http
+        .get(Uri.parse(Api.categoriesUrl));
+
+    List<Category> categories = categoryFromJson(res.body);
+    return categories;
+  }
 }
